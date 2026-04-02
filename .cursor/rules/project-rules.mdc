@@ -1,100 +1,62 @@
 ---
-description: Basic rules for AI agents working on this project
+description: Rules for AI agents working on simple-name-picker (Vite + React + TS)
 alwaysApply: true
 ---
 
-# Project Rules for AI Agents
+# Project rules for AI agents
 
-## Code Style
+## Code style
 
-- Use TypeScript strictly; avoid `any` unless necessary
-- Prefer functional components and hooks in React
-- Use meaningful names; keep functions small and focused
+- TypeScript: stay strict; avoid `any` unless there is a clear, narrow reason.
+- React: functional components and hooks; keep state and effects easy to follow.
+- Names and functions: descriptive, small, single-purpose.
 
-## Commit Messages
+## Stack & tooling
+
+- **React 19** + **TypeScript** + **Vite 8** (`@vitejs/plugin-react`), ESLint flat config (`eslint.config.js`).
+- After substantive changes, run **`npm run lint`** and **`npm run build`**; fix anything introduced by the edit.
+- Scripts: `npm run dev`, `npm run build`, `npm run preview`, `npm run lint`.
+
+## Product context — simple-name-picker
+
+- Small front-end app for **choosing or drawing names** fairly from a list (flows will evolve under `src/`).
+- Prefer **simple, accessible UI** (keyboard, labels, readable contrast) as features are added.
+- **Persistence** (e.g. `localStorage`) is optional until the app defines it; do not assume files or hooks from other repos exist here.
+
+## Editing habits
+
+- Prefer changing existing files over adding new ones when it keeps the design clear.
+- Match indentation and formatting already in the file.
+- Do not add dependencies without a short justification; keep the repo lightweight unless product needs say otherwise.
+
+## Project structure (evolve as needed)
+
+- Today: `src/App.tsx`, `src/main.tsx`, styles under `src/`, assets in `src/assets` and `public/`.
+- As it grows: `src/components/`, `src/hooks/`, `src/types/` when duplication or clarity calls for it.
+
+No rigid per-component `index.tsx` + `types.ts` + `styles.css` layout unless this codebase adopts that pattern.
+
+## Commit messages
 
 Use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/):
 
-```
-<type>[optional scope]: <description>
-```
+`type[optional scope]: description`
 
-- **feat:** new feature (MINOR)
-- **fix:** bug fix (PATCH)
-- **docs:** documentation only
-- **style:** formatting, no code change
-- **refactor:** code change that neither fixes nor adds a feature
-- **perf:** performance improvement
-- **test:** adding or updating tests
-- **chore:** build, CI, tooling
-- **BREAKING CHANGE:** use `!` after type/scope or footer (MAJOR)
+- **feat:** — new feature (MINOR)
+- **fix:** — bug fix (PATCH)
+- **docs:** / **style:** / **refactor:** / **perf:** / **test:** / **chore:** — as usual
+- **BREAKING CHANGE:** `!` after type/scope or footer for MAJOR
 
-Example: `feat(auth): add login form`
+Example: `feat: add name list editor`
 
-## Versioning & Changelog
+## Versioning & changelog (when releasing)
 
-- Use [Semantic Versioning](https://semver.org/): MAJOR.MINOR.PATCH
-- Version lives in `package.json`; shown in footer via Vite `define`
-- When releasing: bump `package.json` version, then add a `CHANGELOG.md` entry
-
-### Changelog format
-
-- Follow [Keep a Changelog](https://keepachangelog.com/)
-- File: `CHANGELOG.md` at project root
-- Sections: `### Added`, `### Changed`, `### Deprecated`, `### Removed`, `### Fixed`, `### Security`
-- Entry format: `## [X.Y.Z] - YYYY-MM-DD`
-- Add new entries at the top (above previous releases)
-
-### Version bump rules
-
-- **PATCH** — bug fixes, minor tweaks
-- **MINOR** — new features, non-breaking changes
-- **MAJOR** — breaking changes (use `BREAKING CHANGE` in commit)
-
-## Editing
-
-- Prefer editing existing files over creating new ones
-- Preserve existing formatting and indentation
-- Run linter after changes; fix any new issues
-
-## Project Context
-
-- React 19 + TypeScript + Vite app
-- WoW raid cooldown tracker: characters, dungeons, per-character–dungeon toggles
-- Data in localStorage; dungeons list starts empty by default
-- `data/dungeons.ts` — DungeonList template (WoW WotLK raids, Russian names)
-- App version from `package.json` via Vite `define` (`__APP_VERSION__` in `vite-env.d.ts`)
-- Follow existing patterns; check README before adding dependencies
-
-## Key Behaviors
-
-- **Add from template** — loads DungeonList into table (empty state)
-- **Reset dungeons** — clears all cooldown toggles only (keeps dungeon list)
-- **Delete all** — removes all dungeons and toggles
-- **Reset per character** — clears toggles for that character only
-
-## Component Structure
-
-- **kebab-case** for component dirs (e.g. `character-form/`)
-- Each component: `index.tsx`, `types.ts`, `styles.css`
-- State centralized in `useRaidTracker`; components receive handlers via props
-
-## Project Structure
-
-```
-src/
-├── components/   # character-form, dungeon-form, dungeon-table
-├── hooks/         # useRaidTracker
-├── types/         # characters, dungeons
-├── data/          # dungeons.ts (DungeonList template)
-├── assets/        # class icons
-├── storage.ts     # localStorage load/save
-├── uuid.ts        # generateUUID
-└── vite-env.d.ts  # __APP_VERSION__ declaration
-```
+- **SemVer** in `package.json` when cutting releases.
+- **Changelog:** optional at `0.0.0`; if you maintain one, use [Keep a Changelog](https://keepachangelog.com/) at repo root, newest first.
+- **Vite `define` / build-time version strings** (e.g. for a footer): only add when the UI or logic actually needs them — this template does not inject `__APP_VERSION__` by default.
 
 ## Communication
 
-- Be direct and concise
-- Prefer answering questions before making edits when unclear
-- Explain non-obvious changes briefly
+- Be direct and concise.
+- If requirements are ambiguous, ask before large refactors.
+- Briefly note non-obvious choices in responses or commits.
