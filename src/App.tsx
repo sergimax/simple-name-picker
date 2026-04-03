@@ -38,32 +38,11 @@ function App() {
     window.setTimeout(() => setStatus(null), 2500)
   }, [])
 
-  const handleSave = () => {
-    saveNamesState(state)
-    showStatus(`Saved ${names.length} names and ratings to this browser.`)
-  }
-
-  const handleLoad = () => {
-    const stored = loadNamesState()
-
-    if (stored === null) {
-      const fresh = defaultState()
-      setState(fresh)
-      setPicked(null)
-      showStatus('No saved data found—restored the default list.')
-      return
-    }
-
-    setState(stored)
-    setPicked(null)
-    showStatus(`Loaded ${stored.names.length} names from this browser.`)
-  }
-
   const handleReset = () => {
     const fresh = defaultState()
     setState(fresh)
     setPicked(null)
-    showStatus('List and ratings reset to the default catalog.')
+    showStatus('List, ratings, and bans reset to the default catalog.')
   }
 
   const handlePick = () => {
@@ -97,8 +76,6 @@ function App() {
 
   const handlePass = () => {
     if (picked === null) return
-
-    saveNamesState(state)
   }
 
   const handleBan = () => {
@@ -118,7 +95,17 @@ function App() {
   return (
     <>
       <section id="center" className="picker">
-        <h1>Name picker</h1>
+        <header className="picker-header">
+          <h1 className="picker-title">Name picker</h1>
+          <button
+            type="button"
+            className="btn btn-reset"
+            onClick={handleReset}
+            title="Restore the default name list and clear all ratings and bans"
+          >
+            Reset all
+          </button>
+        </header>
         <p className="picker-intro">
           <span className="picker-count">{names.length} names</span>
           {banned.length > 0 && (
@@ -127,10 +114,9 @@ function App() {
               (<span className="picker-banned-count">{banned.length} banned</span>)
             </>
           )}{' '}
-          in this list. Banned names are skipped when picking. Each name has a
-          rating (starts at 0). <b>Save</b> and <b>load</b> keep a copy in your
-          browser; <b>reset</b> restores the default list and clears ratings and
-          bans.
+          in this list. Your picks, ratings, and bans are saved automatically in
+          this browser. Banned names are skipped when picking. Each name has a
+          rating (starts at 0).
         </p>
 
         {picked !== null && (
@@ -171,17 +157,6 @@ function App() {
           <button type="button" className="btn btn-primary" onClick={handlePick}>
             Pick a name
           </button>
-          <div className="btn-group">
-            <button type="button" className="btn" onClick={handleSave}>
-              Save
-            </button>
-            <button type="button" className="btn" onClick={handleLoad}>
-              Load
-            </button>
-            <button type="button" className="btn" onClick={handleReset}>
-              Reset
-            </button>
-          </div>
         </div>
       </section>
     </>
