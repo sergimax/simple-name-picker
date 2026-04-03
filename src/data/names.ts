@@ -1,4 +1,4 @@
-/** Curated female given names (from `names.md`): section letters, wiki clutter, and exact duplicates removed. */
+/** Curated female given names (from `raw-names-list.md`): section letters, wiki clutter, and exact duplicates removed. */
 export const NAMES = [
   "Абби",
   "Аби",

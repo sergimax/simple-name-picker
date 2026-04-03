@@ -4,7 +4,7 @@ import { fileURLToPath } from "url";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const root = path.join(__dirname, "..");
-const mdPath = path.join(root, "src", "data", "names.md");
+const mdPath = path.join(root, "src", "data", "raw-names-list.md");
 const outPath = path.join(root, "src", "data", "names.ts");
 
 const text = fs.readFileSync(mdPath, "utf8");
@@ -48,7 +48,7 @@ const body = sorted
   .map((n) => `  ${JSON.stringify(n)},`)
   .join("\n");
 
-const file = `/** Curated female given names (from \`names.md\`): section letters, wiki clutter, and exact duplicates removed. */
+const file = `/** Curated female given names (from \`raw-names-list.md\`): section letters, wiki clutter, and exact duplicates removed. */
 export const NAMES = [
 ${body}
 ] as const;
