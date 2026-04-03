@@ -19,9 +19,10 @@ alwaysApply: true
 
 ## Product context — simple-name-picker
 
-- Small front-end app for **choosing or drawing names** fairly from a list (flows will evolve under `src/`).
-- Prefer **simple, accessible UI** (keyboard, labels, readable contrast) as features are added.
-- **Persistence** (e.g. `localStorage`) is optional until the app defines it; do not assume files or hooks from other repos exist here.
+- Front-end app for **random picking** from a name catalog with **ratings** (like/dislike), **bans** (skipped until restored), and **browser persistence** (`localStorage`, key `simple-name-picker:names` in `src/namesStorage.ts`).
+- **Discarded (banned) UI** lists `discardedNames`: bans **intersected** with the current `names` catalog. Intro copy and counts should stay consistent with that list (not raw `banned.length`, which can include orphaned entries).
+- After **like/dislike**, the picker **advances** to another random pickable name when possible (see `useNamePicker`).
+- Prefer **simple, accessible UI** (keyboard, labels, readable contrast).
 
 ## Editing habits
 
@@ -29,12 +30,14 @@ alwaysApply: true
 - Match indentation and formatting already in the file.
 - Do not add dependencies without a short justification; keep the repo lightweight unless product needs say otherwise.
 
-## Project structure (evolve as needed)
+## Project structure
 
-- Today: `src/App.tsx`, `src/main.tsx`, styles under `src/`, assets in `src/assets` and `public/`.
-- As it grows: `src/components/`, `src/hooks/`, `src/types/` when duplication or clarity calls for it.
-
-No rigid per-component `index.tsx` + `types.ts` + `styles.css` layout unless this codebase adopts that pattern.
+- Entry: `src/main.tsx`, shell: `src/App.tsx`.
+- UI: `src/components/` (this repo uses per-component folders with `index.tsx` + co-located CSS where needed).
+- Logic: `src/hooks/` (`usePersistedNamesCatalog`, `useNamePicker`, `useStatusMessage`), `src/namePickerState.ts`, `src/namesStorage.ts`.
+- Default catalog: `src/data/names.ts` (sourced from `raw-names-list.md` when regenerated).
+- Styles: `src/*.css`, `public/` for static assets.
+- **Changelog:** [Keep a Changelog](https://keepachangelog.com/) at repo root (`CHANGELOG.md`); update it for user-visible fixes and behavior changes.
 
 ## Commit messages
 
@@ -49,11 +52,12 @@ Use [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/):
 
 Example: `feat: add name list editor`
 
-## Versioning & changelog (when releasing)
+## Versioning & changelog
 
 - **SemVer** in `package.json` when cutting releases.
-- **Changelog:** optional at `0.0.0`; if you maintain one, use [Keep a Changelog](https://keepachangelog.com/) at repo root, newest first.
-- **Vite `define` / build-time version strings** (e.g. for a footer): only add when the UI or logic actually needs them — this template does not inject `__APP_VERSION__` by default.
+- Maintain **`CHANGELOG.md`** at repo root ([Keep a Changelog](https://keepachangelog.com/)); add **Unreleased** notes for notable fixes/features, then cut dated version sections when releasing.
+- **README.md** should stay aligned with real behavior (persistence key, main flows, layout).
+- **Vite `define` / build-time version strings:** only add when the UI or logic needs them.
 
 ## Communication
 
