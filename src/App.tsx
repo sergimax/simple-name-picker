@@ -1,10 +1,11 @@
-import { DiscardedNamesPanel } from './components/DiscardedNamesPanel'
-import { PickedResult } from './components/PickedResult'
-import { PickerActions } from './components/PickerActions'
-import { PickerHeader } from './components/PickerHeader'
-import { PickerIntro } from './components/PickerIntro'
-import { PickerStatus } from './components/PickerStatus'
-import { TopRatedNamesPanel } from './components/TopRatedNamesPanel'
+import { DiscardedNamesPanel } from './components/DiscardedNamesPanel/index.tsx'
+import { ListsPanel } from './components/ListsPanel/index.tsx'
+import { PickedResult } from './components/PickedResult/index.tsx'
+import { PickerActions } from './components/PickerActions/index.tsx'
+import { PickerHeader } from './components/PickerHeader/index.tsx'
+import { PickerIntro } from './components/PickerIntro/index.tsx'
+import { PickerStatus } from './components/PickerStatus/index.tsx'
+import { TopRatedNamesPanel } from './components/TopRatedNamesPanel/index.tsx'
 import { usePersistedNamesCatalog } from './hooks/usePersistedNamesCatalog'
 import { useNamePicker } from './hooks/useNamePicker'
 import { useStatusMessage } from './hooks/useStatusMessage'
@@ -54,13 +55,13 @@ function App() {
         <PickerStatus message={status} />
         <PickerActions onPick={handlePick} />
 
-        <div className="lists-panel">
+        <ListsPanel>
           <DiscardedNamesPanel names={discardedNames} onRestore={handleUnban} />
           <TopRatedNamesPanel
             entries={topRatedEntries}
             shown={topRatedShown}
           />
-        </div>
+        </ListsPanel>
       </section>
     </>
   )

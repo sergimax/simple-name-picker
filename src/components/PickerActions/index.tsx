@@ -1,3 +1,6 @@
+import '../shared/buttons.css'
+import './PickerActions.css'
+
 type PickerActionsProps = {
   onPick: () => void
 }

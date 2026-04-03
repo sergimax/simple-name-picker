@@ -1,0 +1,16 @@
+.picker-intro {
+  margin: 0 0 1.5rem;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  color: var(--text);
+}
+
+.picker-count {
+  color: var(--text-h);
+  font-weight: 500;
+}
+
+.picker-banned-count {
+  color: var(--text-h);
+  font-weight: 500;
+}

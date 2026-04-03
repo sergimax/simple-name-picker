@@ -1,0 +1,66 @@
+.btn {
+  font: inherit;
+  font-size: 0.9375rem;
+  padding: 0.5rem 0.85rem;
+  border-radius: 4px;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-h);
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+
+  &:hover {
+    background: var(--social-bg);
+    border-color: var(--text);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--text-h);
+    outline-offset: 2px;
+  }
+}
+
+.btn-primary {
+  border-color: var(--text-h);
+  background: var(--text-h);
+  color: var(--bg);
+
+  &:hover {
+    background: var(--text-h);
+    border-color: var(--text-h);
+    opacity: 0.92;
+  }
+
+  &:focus-visible {
+    outline-color: var(--text-h);
+  }
+}
+
+.btn-reset {
+  flex-shrink: 0;
+  font-size: 0.8125rem;
+  padding: 0.35rem 0.65rem;
+  color: var(--text);
+  border-color: var(--border);
+}
+
+.btn-like {
+  border-color: color-mix(in srgb, var(--text-h) 35%, var(--border));
+}
+
+.btn-dislike {
+  border-color: color-mix(in srgb, var(--text-h) 35%, var(--border));
+}
+
+.btn-ban {
+  border-color: color-mix(in srgb, var(--text-h) 25%, var(--border));
+  margin-left: auto;
+}
+
+.btn-inline {
+  flex-shrink: 0;
+  font-size: 0.75rem;
+  padding: 0.22rem 0.5rem;
+}

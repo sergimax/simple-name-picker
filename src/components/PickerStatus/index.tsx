@@ -1,3 +1,5 @@
+import './PickerStatus.css'
+
 type PickerStatusProps = {
   message: string | null
 }

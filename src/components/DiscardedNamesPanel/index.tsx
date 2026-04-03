@@ -1,3 +1,6 @@
+import '../shared/buttons.css'
+import '../shared/nameLists.css'
+
 type DiscardedNamesPanelProps = {
   names: string[]
   onRestore: (name: string) => void

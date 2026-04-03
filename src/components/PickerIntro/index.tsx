@@ -1,3 +1,5 @@
+import './PickerIntro.css'
+
 type PickerIntroProps = {
   nameCount: number
   bannedCount: number

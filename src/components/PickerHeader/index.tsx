@@ -1,3 +1,6 @@
+import '../shared/buttons.css'
+import './PickerHeader.css'
+
 type PickerHeaderProps = {
   onReset: () => void
 }

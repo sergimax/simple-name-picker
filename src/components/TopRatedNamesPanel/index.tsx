@@ -1,3 +1,5 @@
+import '../shared/nameLists.css'
+
 type RatedNameRow = { name: string; rating: number }
 
 type TopRatedNamesPanelProps = {
