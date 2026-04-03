@@ -1,135 +1,33 @@
-import { useCallback, useEffect, useMemo, useState } from 'react'
-import { NAMES } from './data/names'
-import {
-  loadNamesState,
-  saveNamesState,
-  type NamesPersistedState,
-} from './namesStorage'
+import { usePersistedNamesCatalog } from './hooks/usePersistedNamesCatalog'
+import { useNamePicker } from './hooks/useNamePicker'
+import { useStatusMessage } from './hooks/useStatusMessage'
 import './App.css'
 
-function defaultState(): NamesPersistedState {
-  return { names: [...NAMES], ratings: {}, banned: [] }
-}
-
-function pickableNames(state: NamesPersistedState): string[] {
-  const banned = new Set(state.banned)
-  return state.names.filter((n) => !banned.has(n))
-}
-
-function ratingFor(state: NamesPersistedState, name: string): number {
-  return state.ratings[name] ?? 0
-}
-
-function sortLocale(a: string, b: string): number {
-  return a.localeCompare(b, undefined, { sensitivity: 'base' })
-}
-
-const TOP_RATED_DISPLAY_LIMIT = 150
-
 function App() {
-  const [state, setState] = useState<NamesPersistedState>(
-    () => loadNamesState() ?? defaultState(),
-  )
-  const { names, banned, ratings } = state
-  const pickable = pickableNames(state)
+  const {
+    state,
+    setState,
+    names,
+    banned,
+    pickable,
+    discardedNames,
+    topRatedEntries,
+    topRatedShown,
+    topRatedOverflow,
+  } = usePersistedNamesCatalog()
 
-  const discardedNames = useMemo(() => {
-    const inList = new Set(names)
-    return banned.filter((n) => inList.has(n)).sort(sortLocale)
-  }, [banned, names])
+  const { status, showStatus } = useStatusMessage()
 
-  const topRatedEntries = useMemo(() => {
-    const rows = names
-      .map((name) => ({ name, rating: ratings[name] ?? 0 }))
-      .filter((row) => row.rating > 0)
-      .sort(
-        (a, b) => b.rating - a.rating || sortLocale(a.name, b.name),
-      )
-    return rows
-  }, [names, ratings])
-
-  const topRatedShown = topRatedEntries.slice(0, TOP_RATED_DISPLAY_LIMIT)
-  const topRatedOverflow = topRatedEntries.length - topRatedShown.length
-  const [picked, setPicked] = useState<string | null>(null)
-  const [status, setStatus] = useState<string | null>(null)
-
-  useEffect(() => {
-    saveNamesState(state)
-  }, [state])
-
-  const showStatus = useCallback((message: string) => {
-    setStatus(message)
-    window.setTimeout(() => setStatus(null), 2500)
-  }, [])
-
-  const handleReset = () => {
-    const fresh = defaultState()
-    setState(fresh)
-    setPicked(null)
-    showStatus('List, ratings, and bans reset to the default catalog.')
-  }
-
-  const handlePick = () => {
-    if (names.length === 0) {
-      showStatus('Your list is empty—add names or reset to default.')
-      return
-    }
-    if (pickable.length === 0) {
-      showStatus('Every name is banned—reset the list to clear bans.')
-      return
-    }
-    const i = Math.floor(Math.random() * pickable.length)
-    setPicked(pickable[i])
-  }
-
-  const applyRatingDelta = (delta: number) => {
-    if (picked === null) return
-
-    setState((prev) => {
-      const current = ratingFor(prev, picked)
-      const nextRating = current + delta
-      return {
-        ...prev,
-        ratings: { ...prev.ratings, [picked]: nextRating },
-      }
-    })
-  }
-
-  const handleLike = () => applyRatingDelta(1)
-  const handleDislike = () => applyRatingDelta(-1)
-
-  const handleUnban = (name: string) => {
-    setState((prev) => ({
-      ...prev,
-      banned: prev.banned.filter((n) => n !== name),
-    }))
-    showStatus(`“${name}” is back in the pick pool.`)
-  }
-
-  const handleBan = () => {
-    if (picked === null) return
-    const name = picked
-
-    const nextBanned = state.banned.includes(name)
-      ? state.banned
-      : [...state.banned, name]
-    const nextState: NamesPersistedState = { ...state, banned: nextBanned }
-    setState(nextState)
-
-    const pool = pickableNames(nextState)
-    if (pool.length === 0) {
-      setPicked(null)
-      showStatus(
-        `“${name}” is banned. Every name is banned—reset the list to clear bans.`,
-      )
-      return
-    }
-    const j = Math.floor(Math.random() * pool.length)
-    setPicked(pool[j])
-    showStatus(`“${name}” is banned—here’s another name.`)
-  }
-
-  const pickedRating = picked !== null ? ratingFor(state, picked) : null
+  const {
+    picked,
+    pickedRating,
+    handleReset,
+    handlePick,
+    handleLike,
+    handleDislike,
+    handleBan,
+    handleUnban,
+  } = useNamePicker(state, setState, pickable, showStatus)
 
   return (
     <>
