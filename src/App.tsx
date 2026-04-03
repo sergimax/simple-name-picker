@@ -16,7 +16,6 @@ function App() {
     state,
     setState,
     names,
-    banned,
     pickable,
     discardedNames,
     topRatedEntries,
@@ -40,7 +39,7 @@ function App() {
     <>
       <section id="center" className="picker">
         <PickerHeader onReset={handleReset} />
-        <PickerIntro nameCount={names.length} bannedCount={banned.length} />
+        <PickerIntro nameCount={names.length} bannedCount={discardedNames.length} />
 
         {picked !== null && (
           <PickedResult
