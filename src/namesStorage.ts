@@ -5,6 +5,8 @@ export type NamesPersistedState = {
   names: string[]
   /** Per-name score; names omitted default to 0 in the UI. */
   ratings: Record<string, number>
+  /** Names excluded from random picking. */
+  banned: string[]
 }
 
 function isRecord(x: unknown): x is Record<string, unknown> {
@@ -25,7 +27,7 @@ export function loadNamesState(): NamesPersistedState | null {
 
     if (Array.isArray(parsed)) {
       const names = parsed.filter((x): x is string => typeof x === 'string')
-      return { names, ratings: {} }
+      return { names, ratings: {}, banned: [] }
     }
 
     if (!isRecord(parsed)) return null
@@ -37,13 +39,20 @@ export function loadNamesState(): NamesPersistedState | null {
 
     const names = namesRaw.filter((x): x is string => typeof x === 'string')
 
-    if (!isRecord(ratingsRaw)) return { names, ratings: {} }
+    if (!isRecord(ratingsRaw)) return { names, ratings: {}, banned: [] }
 
     const ratings: Record<string, number> = {}
     for (const [key, val] of Object.entries(ratingsRaw)) {
       if (typeof val === 'number' && Number.isFinite(val)) ratings[key] = val
     }
-    return { names, ratings }
+
+    const bannedRaw = parsed.banned
+    let banned: string[] = []
+    if (Array.isArray(bannedRaw)) {
+      banned = bannedRaw.filter((x): x is string => typeof x === 'string')
+    }
+
+    return { names, ratings, banned }
   } catch {
     return null
   }
@@ -59,6 +68,9 @@ export function saveNamesState(state: NamesPersistedState): void {
     const v = state.ratings[name]
     if (typeof v === 'number' && v !== 0) ratings[name] = v
   }
-  const payload: NamesPersistedState = { names: state.names, ratings }
+  const nameSet = new Set(state.names)
+  const banned = [...new Set(state.banned.filter((n) => nameSet.has(n)))]
+
+  const payload: NamesPersistedState = { names: state.names, ratings, banned }
   localStorage.setItem(NAMES_STORAGE_KEY, JSON.stringify(payload))
 }

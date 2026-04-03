@@ -30,6 +30,11 @@
   font-weight: 500;
 }
 
+.picker-banned-count {
+  color: var(--text-h);
+  font-weight: 500;
+}
+
 .picked {
   margin: 0 0 1rem;
   padding: 0 0 1rem;
@@ -79,6 +84,11 @@
 
 .btn-pass {
   border-color: var(--border);
+}
+
+.btn-ban {
+  border-color: color-mix(in srgb, var(--text-h) 25%, var(--border));
+  margin-left: auto;
 }
 
 .status {

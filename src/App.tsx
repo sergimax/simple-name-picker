@@ -8,7 +8,12 @@ import {
 import './App.css'
 
 function defaultState(): NamesPersistedState {
-  return { names: [...NAMES], ratings: {} }
+  return { names: [...NAMES], ratings: {}, banned: [] }
+}
+
+function pickableNames(state: NamesPersistedState): string[] {
+  const banned = new Set(state.banned)
+  return state.names.filter((n) => !banned.has(n))
 }
 
 function ratingFor(state: NamesPersistedState, name: string): number {
@@ -19,7 +24,8 @@ function App() {
   const [state, setState] = useState<NamesPersistedState>(
     () => loadNamesState() ?? defaultState(),
   )
-  const { names } = state
+  const { names, banned } = state
+  const pickable = pickableNames(state)
   const [picked, setPicked] = useState<string | null>(null)
   const [status, setStatus] = useState<string | null>(null)
 
@@ -65,8 +71,12 @@ function App() {
       showStatus('Your list is empty—add names or reset to default.')
       return
     }
-    const i = Math.floor(Math.random() * names.length)
-    setPicked(names[i])
+    if (pickable.length === 0) {
+      showStatus('Every name is banned—reset the list to clear bans.')
+      return
+    }
+    const i = Math.floor(Math.random() * pickable.length)
+    setPicked(pickable[i])
   }
 
   const applyRatingDelta = (delta: number) => {
@@ -91,6 +101,18 @@ function App() {
     saveNamesState(state)
   }
 
+  const handleBan = () => {
+    if (picked === null) return
+    const name = picked
+    setState((prev) =>
+      prev.banned.includes(name)
+        ? prev
+        : { ...prev, banned: [...prev.banned, name] },
+    )
+    setPicked(null)
+    showStatus(`“${name}” is banned and won’t be picked again.`)
+  }
+
   const pickedRating = picked !== null ? ratingFor(state, picked) : null
 
   return (
@@ -98,10 +120,17 @@ function App() {
       <section id="center" className="picker">
         <h1>Name picker</h1>
         <p className="picker-intro">
-          <span className="picker-count">{names.length} names</span> in this
-          list. Each name has a rating (starts at 0). <b>Save</b> and <b>load</b>{' '}
-          keep a copy in your browser; <b>reset</b> restores the default list and
-          clears ratings.
+          <span className="picker-count">{names.length} names</span>
+          {banned.length > 0 && (
+            <>
+              {' '}
+              (<span className="picker-banned-count">{banned.length} banned</span>)
+            </>
+          )}{' '}
+          in this list. Banned names are skipped when picking. Each name has a
+          rating (starts at 0). <b>Save</b> and <b>load</b> keep a copy in your
+          browser; <b>reset</b> restores the default list and clears ratings and
+          bans.
         </p>
 
         {picked !== null && (
@@ -113,7 +142,7 @@ function App() {
             </div>
             <div className="rating-actions" role="group" aria-label="Rate this name">
               <button type="button" className="btn btn-like" onClick={handleLike}>
-                Like (+1)
+                Like
               </button>
               <button type="button" className="btn btn-pass" onClick={handlePass}>
                 Pass
@@ -123,7 +152,10 @@ function App() {
                 className="btn btn-dislike"
                 onClick={handleDislike}
               >
-                Dislike (−1)
+                Dislike
+              </button>
+              <button type="button" className="btn btn-ban" onClick={handleBan}>
+                Ban
               </button>
             </div>
           </div>
