@@ -41,7 +41,7 @@ export function useNamePicker(
     setPicked(pickable[i])
   }, [names.length, pickable, showStatus])
 
-  const applyRatingDelta = useCallback(
+  const bumpRatingAndAdvance = useCallback(
     (delta: number) => {
       if (picked === null) return
       const target = picked
@@ -52,14 +52,18 @@ export function useNamePicker(
           ratings: { ...prev.ratings, [target]: current + delta },
         }
       })
+      const others = pickable.filter((n) => n !== target)
+      if (others.length > 0) {
+        setPicked(others[Math.floor(Math.random() * others.length)])
+      }
     },
-    [picked, setState],
+    [picked, pickable, setState],
   )
 
-  const handleLike = useCallback(() => applyRatingDelta(1), [applyRatingDelta])
+  const handleLike = useCallback(() => bumpRatingAndAdvance(1), [bumpRatingAndAdvance])
   const handleDislike = useCallback(
-    () => applyRatingDelta(-1),
-    [applyRatingDelta],
+    () => bumpRatingAndAdvance(-1),
+    [bumpRatingAndAdvance],
   )
 
   const handleUnban = useCallback(
