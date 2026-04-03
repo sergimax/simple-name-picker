@@ -1,26 +1,64 @@
-/** Key for the persisted name list in `localStorage`. */
+/** Key for the persisted name list and ratings in `localStorage`. */
 export const NAMES_STORAGE_KEY = 'simple-name-picker:names'
 
+export type NamesPersistedState = {
+  names: string[]
+  /** Per-name score; names omitted default to 0 in the UI. */
+  ratings: Record<string, number>
+}
+
+function isRecord(x: unknown): x is Record<string, unknown> {
+  return typeof x === 'object' && x !== null && !Array.isArray(x)
+}
+
 /**
- * Read the saved name list. Returns `null` if nothing is stored or data is invalid.
+ * Read saved names and ratings. Returns `null` if nothing is stored or data is invalid.
+ * Supports legacy format: a JSON array of strings (ratings default to {}).
  */
-export function loadNames(): string[] | null {
+export function loadNamesState(): NamesPersistedState | null {
   if (typeof localStorage === 'undefined') return null
   try {
     const raw = localStorage.getItem(NAMES_STORAGE_KEY)
     if (raw == null) return null
+
     const parsed: unknown = JSON.parse(raw)
-    if (!Array.isArray(parsed)) return null
-    return parsed.filter((x): x is string => typeof x === 'string')
+
+    if (Array.isArray(parsed)) {
+      const names = parsed.filter((x): x is string => typeof x === 'string')
+      return { names, ratings: {} }
+    }
+
+    if (!isRecord(parsed)) return null
+
+    const namesRaw = parsed.names
+    const ratingsRaw = parsed.ratings
+
+    if (!Array.isArray(namesRaw)) return null
+
+    const names = namesRaw.filter((x): x is string => typeof x === 'string')
+
+    if (!isRecord(ratingsRaw)) return { names, ratings: {} }
+
+    const ratings: Record<string, number> = {}
+    for (const [key, val] of Object.entries(ratingsRaw)) {
+      if (typeof val === 'number' && Number.isFinite(val)) ratings[key] = val
+    }
+    return { names, ratings }
   } catch {
     return null
   }
 }
 
 /**
- * Persist the current name list.
+ * Persist names and per-name ratings. Drops ratings for names not in the list and omits zero scores.
  */
-export function saveNames(names: string[]): void {
+export function saveNamesState(state: NamesPersistedState): void {
   if (typeof localStorage === 'undefined') return
-  localStorage.setItem(NAMES_STORAGE_KEY, JSON.stringify(names))
+  const ratings: Record<string, number> = {}
+  for (const name of state.names) {
+    const v = state.ratings[name]
+    if (typeof v === 'number' && v !== 0) ratings[name] = v
+  }
+  const payload: NamesPersistedState = { names: state.names, ratings }
+  localStorage.setItem(NAMES_STORAGE_KEY, JSON.stringify(payload))
 }

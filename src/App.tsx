@@ -1,16 +1,31 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { NAMES } from './data/names'
-import { loadNames, saveNames } from './namesStorage'
+import {
+  loadNamesState,
+  saveNamesState,
+  type NamesPersistedState,
+} from './namesStorage'
 import './App.css'
 
-const defaultNames = (): string[] => [...NAMES]
+function defaultState(): NamesPersistedState {
+  return { names: [...NAMES], ratings: {} }
+}
+
+function ratingFor(state: NamesPersistedState, name: string): number {
+  return state.ratings[name] ?? 0
+}
 
 function App() {
-  const [names, setNames] = useState<string[]>(
-    () => loadNames() ?? defaultNames(),
+  const [state, setState] = useState<NamesPersistedState>(
+    () => loadNamesState() ?? defaultState(),
   )
+  const { names } = state
   const [picked, setPicked] = useState<string | null>(null)
   const [status, setStatus] = useState<string | null>(null)
+
+  useEffect(() => {
+    saveNamesState(state)
+  }, [state])
 
   const showStatus = useCallback((message: string) => {
     setStatus(message)
@@ -18,25 +33,31 @@ function App() {
   }, [])
 
   const handleSave = () => {
-    saveNames(names)
-    showStatus(`Saved ${names.length} names to this browser.`)
+    saveNamesState(state)
+    showStatus(`Saved ${names.length} names and ratings to this browser.`)
   }
 
   const handleLoad = () => {
-    const stored = loadNames()
+    const stored = loadNamesState()
+
     if (stored === null) {
-      setNames(defaultNames())
-      showStatus('No saved list found—restored the default list.')
+      const fresh = defaultState()
+      setState(fresh)
+      setPicked(null)
+      showStatus('No saved data found—restored the default list.')
       return
     }
-    setNames(stored)
-    showStatus(`Loaded ${stored.length} names from this browser.`)
+
+    setState(stored)
+    setPicked(null)
+    showStatus(`Loaded ${stored.names.length} names from this browser.`)
   }
 
   const handleReset = () => {
-    setNames(defaultNames())
+    const fresh = defaultState()
+    setState(fresh)
     setPicked(null)
-    showStatus('List reset to the default catalog.')
+    showStatus('List and ratings reset to the default catalog.')
   }
 
   const handlePick = () => {
@@ -48,20 +69,63 @@ function App() {
     setPicked(names[i])
   }
 
+  const applyRatingDelta = (delta: number) => {
+    if (picked === null) return
+
+    setState((prev) => {
+      const current = ratingFor(prev, picked)
+      const nextRating = current + delta
+      return {
+        ...prev,
+        ratings: { ...prev.ratings, [picked]: nextRating },
+      }
+    })
+  }
+
+  const handleLike = () => applyRatingDelta(1)
+  const handleDislike = () => applyRatingDelta(-1)
+
+  const handlePass = () => {
+    if (picked === null) return
+
+    saveNamesState(state)
+  }
+
+  const pickedRating = picked !== null ? ratingFor(state, picked) : null
+
   return (
     <>
       <section id="center" className="picker">
         <h1>Name picker</h1>
         <p className="picker-intro">
           <span className="picker-count">{names.length} names</span> in this
-          list. <b>Save</b> and <b>load</b> keep a copy in your browser; <b>reset</b> restores the
-          default list.
+          list. Each name has a rating (starts at 0). <b>Save</b> and <b>load</b>{' '}
+          keep a copy in your browser; <b>reset</b> restores the default list and
+          clears ratings.
         </p>
 
         {picked !== null && (
           <div className="picked" aria-live="polite">
             <div className="picked-label">Result</div>
             <div className="picked-name">{picked}</div>
+            <div className="picked-rating" aria-label="Current rating for this name">
+              Rating: <span className="picked-rating-value">{pickedRating}</span>
+            </div>
+            <div className="rating-actions" role="group" aria-label="Rate this name">
+              <button type="button" className="btn btn-like" onClick={handleLike}>
+                Like (+1)
+              </button>
+              <button type="button" className="btn btn-pass" onClick={handlePass}>
+                Pass
+              </button>
+              <button
+                type="button"
+                className="btn btn-dislike"
+                onClick={handleDislike}
+              >
+                Dislike (−1)
+              </button>
+            </div>
           </div>
         )}
 

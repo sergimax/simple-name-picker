@@ -51,6 +51,36 @@
   color: var(--text-h);
 }
 
+.picked-rating {
+  margin-top: 0.65rem;
+  font-size: 0.9375rem;
+  color: var(--text);
+}
+
+.picked-rating-value {
+  font-weight: 600;
+  color: var(--text-h);
+}
+
+.rating-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 0.85rem;
+}
+
+.btn-like {
+  border-color: color-mix(in srgb, var(--text-h) 35%, var(--border));
+}
+
+.btn-dislike {
+  border-color: color-mix(in srgb, var(--text-h) 35%, var(--border));
+}
+
+.btn-pass {
+  border-color: var(--border);
+}
+
 .status {
   margin: 0 0 1rem;
   font-size: 0.875rem;
