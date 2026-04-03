@@ -35,7 +35,6 @@ export function usePersistedNamesCatalog() {
   }, [names, ratings])
 
   const topRatedShown = topRatedEntries.slice(0, TOP_RATED_DISPLAY_LIMIT)
-  const topRatedOverflow = topRatedEntries.length - topRatedShown.length
 
   return {
     state,
@@ -46,6 +45,5 @@ export function usePersistedNamesCatalog() {
     discardedNames,
     topRatedEntries,
     topRatedShown,
-    topRatedOverflow,
   }
 }
