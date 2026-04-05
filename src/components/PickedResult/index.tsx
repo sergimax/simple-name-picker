@@ -18,8 +18,8 @@ export function PickedResult({
 }: PickedResultProps) {
   return (
     <div className="picked" aria-live="polite">
-      <div className="picked-label">Result</div>
-      <div className="picked-name">{name}</div>
+      <div className="picked-label">Current pick</div>
+      <p className="picked-name">{name}</p>
       <div className="picked-rating" aria-label="Current rating for this name">
         Rating: <span className="picked-rating-value">{rating}</span>
       </div>
