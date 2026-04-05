@@ -1,4 +1,4 @@
-/* Positive ratings, highest score first */
+/* Non-zero ratings, highest score first */
 .top-rated-names-panel {
   display: flex;
   flex-direction: column;

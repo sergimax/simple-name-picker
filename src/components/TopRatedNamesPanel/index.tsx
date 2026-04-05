@@ -16,6 +16,7 @@ export function TopRatedNamesPanel({
   onAdjustRating,
 }: TopRatedNamesPanelProps) {
   const overflowCount = entries.length - shown.length
+
   return (
     <section
       className="top-rated-names-panel"
@@ -23,18 +24,19 @@ export function TopRatedNamesPanel({
       data-names-panel="top-rated"
     >
       <h2 id="top-rated-heading" className="list-block-title">
-        Top rated
+        Ratings
       </h2>
       <p className="list-block-hint">
-        Names you have liked at least once, highest score first.
+        Non-zero scores (likes and dislikes), highest first. Positive scores are
+        skipped when picking.
       </p>
       {entries.length === 0 ? (
-        <p className="list-empty">No positive ratings yet.</p>
+        <p className="list-empty">No rated names yet.</p>
       ) : (
         <>
           <ul
             className="name-list"
-            aria-label="Names with positive ratings, highest first"
+            aria-label="Rated names, highest score first"
           >
             {shown.map((row) => (
               <li key={row.name}>
@@ -74,7 +76,7 @@ export function TopRatedNamesPanel({
           </ul>
           {overflowCount > 0 && (
             <p className="list-overflow" role="status">
-              Showing {shown.length} of {entries.length} liked names.
+              Showing {shown.length} of {entries.length} rated names.
             </p>
           )}
         </>

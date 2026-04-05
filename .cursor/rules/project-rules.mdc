@@ -21,7 +21,8 @@ alwaysApply: true
 
 - Front-end app for **random picking** from a name catalog with **ratings** (like/dislike), **bans** (skipped until restored), and **browser persistence** (`localStorage`, key `simple-name-picker:names` in `src/namesStorage.ts`).
 - **Discarded (banned) UI** lists `discardedNames`: bans **intersected** with the current `names` catalog. Intro copy and counts should stay consistent with that list (not raw `banned.length`, which can include orphaned entries).
-- After **like/dislike**, the picker **advances** to another random pickable name when possible (see `useNamePicker`).
+- **`pickableNames`** (see `namePickerState.ts`): not banned and **rating ≤ 0** (positive scores are excluded from random picks until lowered via the ratings panel).
+- **Ratings** panel lists **non-zero** ratings (positive and negative), sorted by score. After **like/dislike**, the picker **advances** to another random pickable name when possible (see `useNamePicker`).
 - Prefer **simple, accessible UI** (keyboard, labels, readable contrast).
 
 ## Editing habits

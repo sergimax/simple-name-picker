@@ -16,8 +16,8 @@ export function PickerIntro({ nameCount, bannedCount }: PickerIntroProps) {
         </>
       )}{' '}
       in this list. Your picks, ratings, and bans are saved automatically in this
-      browser. Banned names are skipped when picking. Each name has a rating
-      (starts at 0).
+      browser. Banned names and names with a positive rating are skipped when
+      picking. Each name has a rating (starts at 0).
     </p>
   )
 }

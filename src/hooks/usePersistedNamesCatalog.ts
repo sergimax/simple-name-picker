@@ -25,10 +25,11 @@ export function usePersistedNamesCatalog() {
     return banned.filter((n) => inList.has(n)).sort(sortLocale)
   }, [banned, names])
 
+  /** Non-zero ratings (positive and negative), highest score first. */
   const topRatedEntries = useMemo(() => {
     return names
       .map((name) => ({ name, rating: ratings[name] ?? 0 }))
-      .filter((row) => row.rating > 0)
+      .filter((row) => row.rating !== 0)
       .sort(
         (a, b) => b.rating - a.rating || sortLocale(a.name, b.name),
       )

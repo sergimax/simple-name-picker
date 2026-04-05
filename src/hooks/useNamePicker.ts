@@ -34,7 +34,9 @@ export function useNamePicker(
       return
     }
     if (pickable.length === 0) {
-      showStatus('Every name is banned—reset the list to clear bans.')
+      showStatus(
+        'No names left to pick—unban some, remove positive ratings (right-hand list), or reset.',
+      )
       return
     }
     const i = Math.floor(Math.random() * pickable.length)
@@ -102,7 +104,7 @@ export function useNamePicker(
     if (pool.length === 0) {
       setPicked(null)
       showStatus(
-        `“${name}” is banned. Every name is banned—reset the list to clear bans.`,
+        `“${name}” is banned. Nothing left to pick—unban, lower positive ratings, or reset.`,
       )
       return
     }

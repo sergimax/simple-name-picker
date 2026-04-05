@@ -7,9 +7,14 @@ export function defaultNamesState(): NamesPersistedState {
   return { names: [...NAMES], ratings: {}, banned: [] }
 }
 
+/** Names eligible for random pick: not banned and not positively rated (> 0). */
 export function pickableNames(state: NamesPersistedState): string[] {
   const banned = new Set(state.banned)
-  return state.names.filter((n) => !banned.has(n))
+  return state.names.filter((n) => {
+    if (banned.has(n)) return false
+    if (ratingFor(state, n) > 0) return false
+    return true
+  })
 }
 
 export function ratingFor(state: NamesPersistedState, name: string): number {
