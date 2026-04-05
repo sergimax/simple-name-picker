@@ -37,38 +37,43 @@ function App() {
   } = useNamePicker(state, setState, pickable, showStatus)
 
   return (
-    <div className="app-layout">
-      <aside className="app-column app-column--discarded">
-        <DiscardedNamesPanel names={discardedNames} onRestore={handleUnban} />
-      </aside>
+    <>
+      <div className="app-layout">
+        <aside className="app-column app-column--discarded">
+          <DiscardedNamesPanel names={discardedNames} onRestore={handleUnban} />
+        </aside>
 
-      <section id="center" className="picker app-column app-column--main">
-        <PickerHeader onReset={handleReset} />
-        <PickerIntro nameCount={names.length} bannedCount={discardedNames.length} />
+        <section id="center" className="picker app-column app-column--main">
+          <PickerHeader onReset={handleReset} />
+          <PickerIntro nameCount={names.length} bannedCount={discardedNames.length} />
 
-        {picked !== null && (
-          <PickedResult
-            name={picked}
-            rating={pickedRating ?? 0}
-            onLike={handleLike}
-            onDislike={handleDislike}
-            onBan={handleBan}
+          {picked !== null && (
+            <PickedResult
+              name={picked}
+              rating={pickedRating ?? 0}
+              onLike={handleLike}
+              onDislike={handleDislike}
+              onBan={handleBan}
+            />
+          )}
+
+          <PickerStatus message={status} />
+          <PickerActions onPick={handlePick} />
+        </section>
+
+        <aside className="app-column app-column--top-rated">
+          <TopRatedNamesPanel
+            entries={topRatedEntries}
+            shown={topRatedShown}
+            onAdjustRating={handleAdjustRating}
+            onResetRating={handleResetNameRating}
           />
-        )}
-
-        <PickerStatus message={status} />
-        <PickerActions onPick={handlePick} />
-      </section>
-
-      <aside className="app-column app-column--top-rated">
-        <TopRatedNamesPanel
-          entries={topRatedEntries}
-          shown={topRatedShown}
-          onAdjustRating={handleAdjustRating}
-          onResetRating={handleResetNameRating}
-        />
-      </aside>
-    </div>
+        </aside>
+      </div>
+      <footer className="app-footer">
+        <span className="app-footer-version">v{__APP_VERSION__}</span>
+      </footer>
+    </>
   )
 }
 
