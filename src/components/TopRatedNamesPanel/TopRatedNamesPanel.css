@@ -36,6 +36,15 @@
   transition: background-position 0.22s ease;
 }
 
+.top-rated-names-panel .name-list-row-tools {
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 0.35rem;
+}
+
 .top-rated-names-panel .name-list-rating-controls {
   display: flex;
   flex-shrink: 0;
@@ -54,4 +63,16 @@
 
 .top-rated-names-panel .btn-rating-minus {
   border-color: color-mix(in srgb, var(--text) 40%, var(--border));
+}
+
+.top-rated-names-panel .btn-rating-reset {
+  font-size: 0.6875rem;
+  padding: 0.16rem 0.42rem;
+  color: var(--text);
+  border-color: color-mix(in srgb, var(--border) 88%, var(--text) 12%);
+}
+
+.top-rated-names-panel .btn-rating-reset:hover {
+  color: var(--text-h);
+  border-color: var(--text);
 }

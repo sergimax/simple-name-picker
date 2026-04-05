@@ -9,12 +9,14 @@ type TopRatedNamesPanelProps = {
   entries: RatedNameRow[]
   shown: RatedNameRow[]
   onAdjustRating: (name: string, delta: number) => void
+  onResetRating: (name: string) => void
 }
 
 export function TopRatedNamesPanel({
   entries,
   shown,
   onAdjustRating,
+  onResetRating,
 }: TopRatedNamesPanelProps) {
   const overflowCount = entries.length - shown.length
   const minR =
@@ -46,7 +48,8 @@ export function TopRatedNamesPanel({
       </h2>
       <p className="list-block-hint">
         Non-zero scores (likes and dislikes), highest first. Positive scores are
-        skipped when picking.
+        skipped when picking. Reset clears a name to 0 and drops it from this
+        list.
       </p>
       {entries.length === 0 ? (
         <p className="list-empty">No rated names yet.</p>
@@ -59,34 +62,45 @@ export function TopRatedNamesPanel({
             {shown.map((row) => (
               <li key={row.name} style={rowBrightnessStyle(row.rating)}>
                 <span className="name-list-label">{row.name}</span>
-                <div
-                  className="name-list-rating-controls"
-                  role="group"
-                  aria-label={`Adjust rating for ${row.name}`}
-                >
+                <div className="name-list-row-tools">
+                  <div
+                    className="name-list-rating-controls"
+                    role="group"
+                    aria-label={`Adjust rating for ${row.name}`}
+                  >
+                    <button
+                      type="button"
+                      className="btn btn-inline btn-rating-minus"
+                      onClick={() => onAdjustRating(row.name, -1)}
+                      title="Remove one point"
+                      aria-label={`Remove one point from ${row.name}`}
+                    >
+                      −
+                    </button>
+                    <span
+                      className="name-list-score"
+                      aria-label={`Rating: ${row.rating}`}
+                    >
+                      {row.rating}
+                    </span>
+                    <button
+                      type="button"
+                      className="btn btn-inline btn-rating-plus"
+                      onClick={() => onAdjustRating(row.name, 1)}
+                      title="Add one point"
+                      aria-label={`Add one point to ${row.name}`}
+                    >
+                      +
+                    </button>
+                  </div>
                   <button
                     type="button"
-                    className="btn btn-inline btn-rating-minus"
-                    onClick={() => onAdjustRating(row.name, -1)}
-                    title="Remove one point"
-                    aria-label={`Remove one point from ${row.name}`}
+                    className="btn btn-inline btn-rating-reset"
+                    onClick={() => onResetRating(row.name)}
+                    title="Clear rating (back to 0) and remove from this list"
+                    aria-label={`Reset rating for ${row.name} to zero`}
                   >
-                    −
-                  </button>
-                  <span
-                    className="name-list-score"
-                    aria-label={`Rating: ${row.rating}`}
-                  >
-                    {row.rating}
-                  </span>
-                  <button
-                    type="button"
-                    className="btn btn-inline btn-rating-plus"
-                    onClick={() => onAdjustRating(row.name, 1)}
-                    title="Add one point"
-                    aria-label={`Add one point to ${row.name}`}
-                  >
-                    +
+                    Reset
                   </button>
                 </div>
               </li>

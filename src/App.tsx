@@ -33,6 +33,7 @@ function App() {
     handleBan,
     handleUnban,
     handleAdjustRating,
+    handleResetNameRating,
   } = useNamePicker(state, setState, pickable, showStatus)
 
   return (
@@ -64,6 +65,7 @@ function App() {
           entries={topRatedEntries}
           shown={topRatedShown}
           onAdjustRating={handleAdjustRating}
+          onResetRating={handleResetNameRating}
         />
       </aside>
     </div>

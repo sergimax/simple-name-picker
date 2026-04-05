@@ -81,6 +81,14 @@ export function useNamePicker(
     [setState],
   )
 
+  const handleResetNameRating = useCallback((target: string) => {
+    setState((prev) => {
+      const nextRatings = { ...prev.ratings }
+      delete nextRatings[target]
+      return { ...prev, ratings: nextRatings }
+    })
+  }, [setState])
+
   const handleUnban = useCallback(
     (name: string) => {
       setState((prev) => ({
@@ -123,6 +131,7 @@ export function useNamePicker(
     handleLike,
     handleDislike,
     handleAdjustRating,
+    handleResetNameRating,
     handleBan,
     handleUnban,
   }
