@@ -1,3 +1,4 @@
+import { AppFooter } from './components/app-footer/index.tsx'
 import { DiscardedNamesPanel } from './components/DiscardedNamesPanel/index.tsx'
 import { PickedResult } from './components/PickedResult/index.tsx'
 import { PickerActions } from './components/PickerActions/index.tsx'
@@ -70,9 +71,7 @@ function App() {
           />
         </aside>
       </div>
-      <footer className="app-footer">
-        <span className="app-footer-version">v{__APP_VERSION__}</span>
-      </footer>
+      <AppFooter />
     </>
   )
 }

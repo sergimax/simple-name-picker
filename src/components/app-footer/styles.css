@@ -1,0 +1,36 @@
+.app-footer {
+  flex-shrink: 0;
+  margin-top: auto;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem 1rem;
+  font-size: 0.8125rem;
+  color: var(--text);
+}
+
+.app-footer-version {
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.04em;
+  opacity: 0.72;
+}
+
+.app-footer a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.app-footer a:hover {
+  color: var(--text-h);
+  text-decoration: underline;
+}
+
+.app-footer .github-icon {
+  flex-shrink: 0;
+}
