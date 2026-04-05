@@ -9,7 +9,7 @@
 - **Ban** removes the current name from the pool and picks again; **Restore** on the discarded list puts a name back.
 - **Discarded (banned)** (left) and **Ratings** (right) flank the main picker on wide screens; on narrow viewports the stack is main, then discarded, then ratings. Side lists scroll within the viewport. The Ratings list shows **non-zero** scores (including negatives), with **−** / **+** / **Reset** per row; higher scores read **brighter** in the row tint. Display is capped (see `TOP_RATED_DISPLAY_LIMIT` in `namePickerState.ts`).
 - **Reset** (header) restores the default name catalog and clears ratings and bans.
-- **Footer** shows the app version (`v…` from `package.json` at build time) and a link to the author on GitHub.
+- **Footer** credits: `version {semver} by sergimax via Cursor` (semver from `package.json` at build time; links to GitHub and Cursor).
 
 The intro line counts names in the catalog and how many are **banned within that catalog**—the same set as under Discarded (banned). Stale ban entries for names no longer in the list are not counted there.
 
