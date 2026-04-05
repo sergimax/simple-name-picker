@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react'
 import '../shared/buttons.css'
 import '../shared/nameLists.css'
 import './TopRatedNamesPanel.css'
@@ -16,6 +17,23 @@ export function TopRatedNamesPanel({
   onAdjustRating,
 }: TopRatedNamesPanelProps) {
   const overflowCount = entries.length - shown.length
+  const minR =
+    shown.length > 0 ? Math.min(...shown.map((r) => r.rating)) : 0
+  const maxR =
+    shown.length > 0 ? Math.max(...shown.map((r) => r.rating)) : 0
+  const ratingSpan = maxR - minR
+
+  /** Higher rating → brighter accent tint (0 = dimmest in view, 1 = brightest). */
+  function rowBrightnessStyle(rating: number): CSSProperties {
+    const t = ratingSpan === 0 ? 0.5 : (rating - minR) / ratingSpan
+    return {
+      background: `linear-gradient(90deg,
+        color-mix(in srgb, var(--bg) 52%, var(--accent) 48%),
+        color-mix(in srgb, var(--bg) 96%, var(--text) 4%))`,
+      backgroundSize: '320% 100%',
+      backgroundPosition: `${(1 - t) * 100}% 0`,
+    }
+  }
 
   return (
     <section
@@ -39,7 +57,7 @@ export function TopRatedNamesPanel({
             aria-label="Rated names, highest score first"
           >
             {shown.map((row) => (
-              <li key={row.name}>
+              <li key={row.name} style={rowBrightnessStyle(row.rating)}>
                 <span className="name-list-label">{row.name}</span>
                 <div
                   className="name-list-rating-controls"

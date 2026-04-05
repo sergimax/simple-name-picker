@@ -1,4 +1,4 @@
-/* Non-zero ratings, highest score first */
+/* Non-zero ratings; row brightness scales with score (higher = brighter accent) */
 .top-rated-names-panel {
   display: flex;
   flex-direction: column;
@@ -29,7 +29,11 @@
   max-height: none;
   overflow: auto;
   border-inline-start: 3px solid var(--accent-border);
-  background: color-mix(in srgb, var(--bg) 92%, var(--accent) 8%);
+  background: var(--bg);
+}
+
+.top-rated-names-panel .name-list li {
+  transition: background-position 0.22s ease;
 }
 
 .top-rated-names-panel .name-list-rating-controls {
