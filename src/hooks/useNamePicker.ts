@@ -66,6 +66,19 @@ export function useNamePicker(
     [bumpRatingAndAdvance],
   )
 
+  const handleAdjustRating = useCallback(
+    (target: string, delta: number) => {
+      setState((prev) => {
+        const current = ratingFor(prev, target)
+        return {
+          ...prev,
+          ratings: { ...prev.ratings, [target]: current + delta },
+        }
+      })
+    },
+    [setState],
+  )
+
   const handleUnban = useCallback(
     (name: string) => {
       setState((prev) => ({
@@ -107,6 +120,7 @@ export function useNamePicker(
     handlePick,
     handleLike,
     handleDislike,
+    handleAdjustRating,
     handleBan,
     handleUnban,
   }

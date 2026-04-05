@@ -1,0 +1,30 @@
+/* Banned names excluded from picks until restored */
+.discarded-names-panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.discarded-names-panel .list-block-title {
+  color: color-mix(in srgb, var(--text-h) 50%, var(--text));
+  flex-shrink: 0;
+}
+
+.discarded-names-panel .list-block-hint {
+  flex-shrink: 0;
+}
+
+.discarded-names-panel .list-empty {
+  flex-shrink: 0;
+}
+
+.discarded-names-panel .name-list {
+  flex: 1;
+  min-height: 0;
+  max-height: none;
+  overflow: auto;
+  border-inline-start: 3px solid
+    color-mix(in srgb, var(--text) 35%, var(--border));
+  background: color-mix(in srgb, var(--bg) 90%, var(--text) 5%);
+}

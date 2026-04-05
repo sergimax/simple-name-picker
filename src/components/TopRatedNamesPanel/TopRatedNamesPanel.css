@@ -1,0 +1,53 @@
+/* Positive ratings, highest score first */
+.top-rated-names-panel {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.top-rated-names-panel .list-block-title {
+  color: var(--accent);
+  flex-shrink: 0;
+}
+
+.top-rated-names-panel .list-block-hint {
+  flex-shrink: 0;
+}
+
+.top-rated-names-panel .list-empty {
+  flex-shrink: 0;
+}
+
+.top-rated-names-panel .list-overflow {
+  flex-shrink: 0;
+}
+
+.top-rated-names-panel .name-list {
+  flex: 1;
+  min-height: 0;
+  max-height: none;
+  overflow: auto;
+  border-inline-start: 3px solid var(--accent-border);
+  background: color-mix(in srgb, var(--bg) 92%, var(--accent) 8%);
+}
+
+.top-rated-names-panel .name-list-rating-controls {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: 0.3rem;
+}
+
+.top-rated-names-panel .name-list-rating-controls .name-list-score {
+  min-width: 1.35rem;
+  text-align: center;
+}
+
+.top-rated-names-panel .btn-rating-plus {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--border));
+}
+
+.top-rated-names-panel .btn-rating-minus {
+  border-color: color-mix(in srgb, var(--text) 40%, var(--border));
+}

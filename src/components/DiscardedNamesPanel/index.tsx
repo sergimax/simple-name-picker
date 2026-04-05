@@ -1,5 +1,6 @@
 import '../shared/buttons.css'
 import '../shared/nameLists.css'
+import './DiscardedNamesPanel.css'
 
 type DiscardedNamesPanelProps = {
   names: string[]
@@ -8,7 +9,11 @@ type DiscardedNamesPanelProps = {
 
 export function DiscardedNamesPanel({ names, onRestore }: DiscardedNamesPanelProps) {
   return (
-    <section className="list-block" aria-labelledby="discarded-heading">
+    <section
+      className="discarded-names-panel"
+      aria-labelledby="discarded-heading"
+      data-names-panel="discarded"
+    >
       <h2 id="discarded-heading" className="list-block-title">
         Discarded (banned)
       </h2>
@@ -19,7 +24,10 @@ export function DiscardedNamesPanel({ names, onRestore }: DiscardedNamesPanelPro
       {names.length === 0 ? (
         <p className="list-empty">No banned names.</p>
       ) : (
-        <ul className="name-list">
+        <ul
+          className="name-list"
+          aria-label="Names banned from random picks"
+        >
           {names.map((name) => (
             <li key={name}>
               <span className="name-list-label">{name}</span>

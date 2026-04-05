@@ -1,5 +1,4 @@
 import { DiscardedNamesPanel } from './components/DiscardedNamesPanel/index.tsx'
-import { ListsPanel } from './components/ListsPanel/index.tsx'
 import { PickedResult } from './components/PickedResult/index.tsx'
 import { PickerActions } from './components/PickerActions/index.tsx'
 import { PickerHeader } from './components/PickerHeader/index.tsx'
@@ -33,11 +32,16 @@ function App() {
     handleDislike,
     handleBan,
     handleUnban,
+    handleAdjustRating,
   } = useNamePicker(state, setState, pickable, showStatus)
 
   return (
-    <>
-      <section id="center" className="picker">
+    <div className="app-layout">
+      <aside className="app-column app-column--discarded">
+        <DiscardedNamesPanel names={discardedNames} onRestore={handleUnban} />
+      </aside>
+
+      <section id="center" className="picker app-column app-column--main">
         <PickerHeader onReset={handleReset} />
         <PickerIntro nameCount={names.length} bannedCount={discardedNames.length} />
 
@@ -53,16 +57,16 @@ function App() {
 
         <PickerStatus message={status} />
         <PickerActions onPick={handlePick} />
-
-        <ListsPanel>
-          <DiscardedNamesPanel names={discardedNames} onRestore={handleUnban} />
-          <TopRatedNamesPanel
-            entries={topRatedEntries}
-            shown={topRatedShown}
-          />
-        </ListsPanel>
       </section>
-    </>
+
+      <aside className="app-column app-column--top-rated">
+        <TopRatedNamesPanel
+          entries={topRatedEntries}
+          shown={topRatedShown}
+          onAdjustRating={handleAdjustRating}
+        />
+      </aside>
+    </div>
   )
 }
 
