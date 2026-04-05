@@ -7,6 +7,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-04-03
+
+### Added
+
+- **`AppFooter`** component: build-time version label (`__APP_VERSION__` from `package.json` via Vite `define`) and GitHub profile link.
+
+### Changed
+
+- Footer layout and styles live in `src/components/app-footer/` instead of `App.css`.
+
 ## [0.1.0] - 2026-04-03
 
 ### Added

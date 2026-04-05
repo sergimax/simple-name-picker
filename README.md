@@ -1,6 +1,6 @@
 # simple-name-picker
 
-**Version 0.1.0** · Small **Vite + React + TypeScript** web app for drawing a **random name** from a catalog, **rating** names (like / dislike), and **banning** names until you restore them. State is **saved in the browser** (`localStorage`). See [CHANGELOG.md](./CHANGELOG.md) for release notes.
+**Version 0.2.0** · Small **Vite + React + TypeScript** web app for drawing a **random name** from a catalog, **rating** names (like / dislike), and **banning** names until you restore them. State is **saved in the browser** (`localStorage`). See [CHANGELOG.md](./CHANGELOG.md) for release notes.
 
 ## Features
 
@@ -9,6 +9,7 @@
 - **Ban** removes the current name from the pool and picks again; **Restore** on the discarded list puts a name back.
 - **Discarded (banned)** (left) and **Ratings** (right) flank the main picker on wide screens; on narrow viewports the stack is main, then discarded, then ratings. Side lists scroll within the viewport. The Ratings list shows **non-zero** scores (including negatives), with **−** / **+** / **Reset** per row; higher scores read **brighter** in the row tint. Display is capped (see `TOP_RATED_DISPLAY_LIMIT` in `namePickerState.ts`).
 - **Reset** (header) restores the default name catalog and clears ratings and bans.
+- **Footer** shows the app version (`v…` from `package.json` at build time) and a link to the author on GitHub.
 
 The intro line counts names in the catalog and how many are **banned within that catalog**—the same set as under Discarded (banned). Stale ban entries for names no longer in the list are not counted there.
 
@@ -46,7 +47,7 @@ src/
 ├── App.css
 ├── main.tsx
 ├── index.css
-├── components/          # PickerHeader, PickedResult, DiscardedNamesPanel, TopRatedNamesPanel, …
+├── components/          # PickerHeader, PickedResult, DiscardedNamesPanel, TopRatedNamesPanel, AppFooter, …
 ├── hooks/               # Catalog persistence, picking, status messages
 ├── namePickerState.ts   # Defaults, pickable set, ratings helpers
 ├── namesStorage.ts      # localStorage load/save (`NAMES_STORAGE_KEY`)
@@ -56,6 +57,8 @@ src/
 public/                  # Static assets
 CHANGELOG.md             # Keep a Changelog–style history
 ```
+
+`vite.config.ts` sets `base: '/simple-name-picker/'` for GitHub Pages and injects `__APP_VERSION__` for the footer.
 
 ## Persistence
 
