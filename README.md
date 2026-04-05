@@ -1,16 +1,16 @@
 # simple-name-picker
 
-Small **Vite + React + TypeScript** web app for drawing a **random name** from a catalog, giving each name a **rating** (like / dislike), and **banning** names so they are skipped until you restore them. State is **saved in the browser** (`localStorage`).
+**Version 0.1.0** · Small **Vite + React + TypeScript** web app for drawing a **random name** from a catalog, **rating** names (like / dislike), and **banning** names until you restore them. State is **saved in the browser** (`localStorage`). See [CHANGELOG.md](./CHANGELOG.md) for release notes.
 
 ## Features
 
-- **Pick** chooses a random name from everyone not banned.
-- **Like** / **Dislike** adjust the stored rating; the picker then moves to **another random name** (not the one you just rated, when other names exist).
-- **Ban** removes the current name from the pick pool and immediately picks again; **Restore** on the discarded list puts a name back.
-- **Discarded (banned)** and **Top rated** side panels summarize bans and positively rated names (top list is capped for display).
-- **Reset** restores the default name catalog and clears ratings and bans.
+- **Pick** chooses a random name that is **not banned** and does **not** have a **positive** rating (scores above 0 stay out of the pool until you lower or reset them in the Ratings panel).
+- **Like** / **Dislike** change the stored rating and move to **another random** pickable name when possible (not the name you just rated).
+- **Ban** removes the current name from the pool and picks again; **Restore** on the discarded list puts a name back.
+- **Discarded (banned)** (left) and **Ratings** (right) flank the main picker on wide screens; on narrow viewports the stack is main, then discarded, then ratings. Side lists scroll within the viewport. The Ratings list shows **non-zero** scores (including negatives), with **−** / **+** / **Reset** per row; higher scores read **brighter** in the row tint. Display is capped (see `TOP_RATED_DISPLAY_LIMIT` in `namePickerState.ts`).
+- **Reset** (header) restores the default name catalog and clears ratings and bans.
 
-The intro line counts names in the catalog and how many are **banned within that catalog**—the same set shown under Discarded (banned). Stale ban entries for names no longer in the list are not counted there.
+The intro line counts names in the catalog and how many are **banned within that catalog**—the same set as under Discarded (banned). Stale ban entries for names no longer in the list are not counted there.
 
 ## Setup
 
@@ -42,11 +42,11 @@ Open [http://localhost:5173](http://localhost:5173).
 
 ```
 src/
-├── App.tsx              # Composes picker UI
+├── App.tsx              # Composes picker UI (three-column shell)
 ├── App.css
 ├── main.tsx
 ├── index.css
-├── components/          # PickerHeader, PickedResult, panels, …
+├── components/          # PickerHeader, PickedResult, DiscardedNamesPanel, TopRatedNamesPanel, …
 ├── hooks/               # Catalog persistence, picking, status messages
 ├── namePickerState.ts   # Defaults, pickable set, ratings helpers
 ├── namesStorage.ts      # localStorage load/save (`NAMES_STORAGE_KEY`)
