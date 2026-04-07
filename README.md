@@ -1,6 +1,6 @@
 # simple-name-picker
 
-**Version 0.2.2** · Small **Vite + React + TypeScript** web app for drawing a **random name** from a catalog, **rating** names (like / dislike), and **banning** names until you restore them. State is **saved in the browser** (`localStorage`). See [CHANGELOG.md](./CHANGELOG.md) for release notes.
+**Version 0.3.0** · Small **Vite + React + TypeScript** web app for drawing a **random name** from a catalog, **rating** names (like / dislike), and **banning** names until you restore them. State is **saved in the browser** (`localStorage`). See [CHANGELOG.md](./CHANGELOG.md) for release notes.
 
 ## Features
 
@@ -8,7 +8,7 @@
 - **Like** / **Dislike** change the stored rating and move to **another random** pickable name when possible (not the name you just rated).
 - **Ban** removes the current name from the pool and picks again; **Restore** on the discarded list puts a name back.
 - **Discarded (banned)** (left) and **Ratings** (right) flank the main picker on wide screens; on narrow viewports the stack is main, then ratings, then discarded. Side lists scroll within the viewport. The Ratings list shows **non-zero** scores (including negatives), with **−** / **+** / **Reset** per row; higher scores read **brighter** in the row tint. Display is capped (see `TOP_RATED_DISPLAY_LIMIT` in `namePickerState.ts`).
-- **Reset** (header) restores the default name catalog and clears ratings and bans.
+- **Редактировать** (header) opens the **Список имён** dialog to edit the **preset** name list (one name per line; duplicates and blank lines are removed when you save). **Сбросить** (header) reapplies that preset: restores names to the saved list and clears ratings and bans.
 - **Footer** credits: `version {semver} by sergimax via Cursor` (semver from `package.json` at build time; links to GitHub and Cursor).
 
 The intro line counts names in the catalog and how many are **banned within that catalog**—the same set as under Discarded (banned). Stale ban entries for names no longer in the list are not counted there.
@@ -51,6 +51,7 @@ src/
 ├── hooks/               # Catalog persistence, picking, status messages
 ├── namePickerState.ts   # Defaults, pickable set, ratings helpers
 ├── namesStorage.ts      # localStorage load/save (`NAMES_STORAGE_KEY`)
+├── presetNamesStorage.ts # localStorage load/save (preset list)
 ├── data/names.ts        # Bundled default catalog (generated list)
 └── assets/
 
@@ -62,7 +63,9 @@ CHANGELOG.md             # Keep a Changelog–style history
 
 ## Persistence
 
-- **Storage key:** `simple-name-picker:names` (see `src/namesStorage.ts`).
+- **Storage keys:**
+  - `simple-name-picker:names` (catalog + ratings + bans; see `src/namesStorage.ts`)
+  - `simple-name-picker:preset-names` (preset list used by reset; see `src/presetNamesStorage.ts`)
 - **Shape:** `names` (string array), `ratings` (record of name → number), `banned` (string array). Legacy saved data that is only an array of strings is still loaded as names with empty ratings and bans.
 
 ## Changelog
