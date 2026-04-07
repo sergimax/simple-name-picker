@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Translate the app UI to Russian (no localization framework).
 - Pick button label now changes to “Следующее имя” after a name is shown.
 - Footer credits remain in English.
+- On narrow screens, the **Ratings** panel is shown before **Discarded (banned)**.
 
 ### Fixed
 

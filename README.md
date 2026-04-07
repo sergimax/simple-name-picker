@@ -7,7 +7,7 @@
 - **Pick** chooses a random name that is **not banned** and does **not** have a **positive** rating (scores above 0 stay out of the pool until you lower or reset them in the Ratings panel).
 - **Like** / **Dislike** change the stored rating and move to **another random** pickable name when possible (not the name you just rated).
 - **Ban** removes the current name from the pool and picks again; **Restore** on the discarded list puts a name back.
-- **Discarded (banned)** (left) and **Ratings** (right) flank the main picker on wide screens; on narrow viewports the stack is main, then discarded, then ratings. Side lists scroll within the viewport. The Ratings list shows **non-zero** scores (including negatives), with **−** / **+** / **Reset** per row; higher scores read **brighter** in the row tint. Display is capped (see `TOP_RATED_DISPLAY_LIMIT` in `namePickerState.ts`).
+- **Discarded (banned)** (left) and **Ratings** (right) flank the main picker on wide screens; on narrow viewports the stack is main, then ratings, then discarded. Side lists scroll within the viewport. The Ratings list shows **non-zero** scores (including negatives), with **−** / **+** / **Reset** per row; higher scores read **brighter** in the row tint. Display is capped (see `TOP_RATED_DISPLAY_LIMIT` in `namePickerState.ts`).
 - **Reset** (header) restores the default name catalog and clears ratings and bans.
 - **Footer** credits: `version {semver} by sergimax via Cursor` (semver from `package.json` at build time; links to GitHub and Cursor).
 
