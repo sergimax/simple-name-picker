@@ -94,6 +94,14 @@ body {
   overflow: hidden;
 }
 
+@media (max-width: 56rem) {
+  html,
+  body {
+    overflow: auto;
+    height: auto;
+  }
+}
+
 h1,
 h2 {
   font-family: var(--heading);

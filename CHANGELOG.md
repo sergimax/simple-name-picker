@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.2.2] - 2026-04-07
+
+### Changed
+
+- On narrow screens, the **Ratings** panel is shown before **Discarded (banned)**.
+
+### Fixed
+
+- On narrow screens, the **Discarded (banned)** and **Ratings** panels now stretch to full width instead of appearing as uneven side-by-side columns.
+- On narrow screens, the page can scroll again (small-screen overflow rules were previously overridden).
+
 ## [0.2.1] - 2026-04-07
 
 ### Changed
