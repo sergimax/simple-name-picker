@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.3.0] - 2026-04-07
+
+### Added
+
+- **Preset name list editor:** header button **Редактировать** opens a dialog (**Список имён**) to edit the name list (one name per line); **Очистить** clears the draft; **Сохранить и применить** updates the preset and reapplies the catalog while clearing ratings and bans.
+- Persist preset list separately in `localStorage` under `simple-name-picker:preset-names`.
+
+### Changed
+
+- Header **Сбросить** reapplies the **saved preset** (names + clears ratings + bans), instead of always restoring the bundled default catalog from `data/names.ts`.
+- Header actions use a consistent button style and stay right-aligned next to the title.
+
 ## [0.2.2] - 2026-04-07
 
 ### Changed

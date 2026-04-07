@@ -15,7 +15,7 @@ export function DiscardedNamesPanel({ names, onRestore }: DiscardedNamesPanelPro
       data-names-panel="discarded"
     >
       <h2 id="discarded-heading" className="list-block-title">
-        Отклоненные имена
+        Отклонены
       </h2>
       <p className="list-block-hint">
         Эти имена исключены из случайного выбора. «Вернуть» возвращает имя обратно

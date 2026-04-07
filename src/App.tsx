@@ -9,7 +9,10 @@ import { TopRatedNamesPanel } from './components/TopRatedNamesPanel/index.tsx'
 import { usePersistedNamesCatalog } from './hooks/usePersistedNamesCatalog'
 import { useNamePicker } from './hooks/useNamePicker'
 import { useStatusMessage } from './hooks/useStatusMessage'
+import { NAMES } from './data/names'
+import { loadPresetNames, savePresetNames } from './presetNamesStorage'
 import './App.css'
+import { useEffect, useMemo, useState } from 'react'
 
 function App() {
   const {
@@ -24,6 +27,18 @@ function App() {
 
   const { status, showStatus } = useStatusMessage()
 
+  const [presetNames, setPresetNames] = useState<string[]>(
+    () => loadPresetNames() ?? [...NAMES],
+  )
+
+  useEffect(() => {
+    savePresetNames(presetNames)
+  }, [presetNames])
+
+  const getResetState = useMemo(() => {
+    return () => ({ names: [...presetNames], ratings: {}, banned: [] })
+  }, [presetNames])
+
   const {
     picked,
     handleReset,
@@ -34,7 +49,7 @@ function App() {
     handleUnban,
     handleAdjustRating,
     handleResetNameRating,
-  } = useNamePicker(state, setState, pickable, showStatus)
+  } = useNamePicker(state, setState, pickable, showStatus, getResetState)
 
   return (
     <>
@@ -44,7 +59,15 @@ function App() {
         </aside>
 
         <section id="center" className="picker app-column app-column--main">
-          <PickerHeader onReset={handleReset} />
+          <PickerHeader
+            onReset={handleReset}
+            presetNames={presetNames}
+            onUpdatePreset={(next) => {
+              setPresetNames(next)
+              setState({ names: [...next], ratings: {}, banned: [] })
+              showStatus('Набор имён обновлён и применён (оценки и баны очищены).')
+            }}
+          />
           <PickerIntro nameCount={names.length} bannedCount={discardedNames.length} />
 
           {picked !== null && (

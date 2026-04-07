@@ -5,7 +5,6 @@ import {
   type SetStateAction,
 } from 'react'
 import {
-  defaultNamesState,
   pickableNames,
   ratingFor,
 } from '../namePickerState'
@@ -18,15 +17,16 @@ export function useNamePicker(
   setState: Setter,
   pickable: string[],
   showStatus: (message: string) => void,
+  getResetState: () => NamesPersistedState,
 ) {
   const { names, banned } = state
   const [picked, setPicked] = useState<string | null>(null)
 
   const handleReset = useCallback(() => {
-    setState(defaultNamesState())
+    setState(getResetState())
     setPicked(null)
-    showStatus('Список, оценки и баны сброшены к каталогу по умолчанию.')
-  }, [setState, showStatus])
+    showStatus('Список, оценки и баны сброшены к исходному состоянию.')
+  }, [getResetState, setState, showStatus])
 
   const handlePick = useCallback(() => {
     if (names.length === 0) {
