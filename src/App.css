@@ -53,6 +53,17 @@
     overflow: visible;
     flex: 1 1 auto;
   }
+
+  .app-column--discarded,
+  .app-column--top-rated {
+    justify-self: stretch;
+  }
+
+  .app-column--discarded > .discarded-names-panel,
+  .app-column--top-rated > .top-rated-names-panel {
+    width: 100%;
+    justify-self: stretch;
+  }
 }
 
 #center.picker {

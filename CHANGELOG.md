@@ -15,6 +15,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Pick button label now changes to “Следующее имя” after a name is shown.
 - Footer credits remain in English.
 
+### Fixed
+
+- On narrow screens, the **Discarded (banned)** and **Ratings** panels now stretch to full width instead of appearing as uneven side-by-side columns.
+- On narrow screens, the page can scroll again (small-screen overflow rules were previously overridden).
+
 ## [0.2.0] - 2026-04-03
 
 ### Added
