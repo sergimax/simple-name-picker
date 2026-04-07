@@ -3,7 +3,6 @@ import './PickedResult.css'
 
 type PickedResultProps = {
   name: string
-  rating: number
   onLike: () => void
   onDislike: () => void
   onBan: () => void

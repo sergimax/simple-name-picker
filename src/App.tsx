@@ -26,7 +26,6 @@ function App() {
 
   const {
     picked,
-    pickedRating,
     handleReset,
     handlePick,
     handleLike,
@@ -51,7 +50,6 @@ function App() {
           {picked !== null && (
             <PickedResult
               name={picked}
-              rating={pickedRating ?? 0}
               onLike={handleLike}
               onDislike={handleDislike}
               onBan={handleBan}
