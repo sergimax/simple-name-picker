@@ -44,20 +44,20 @@ export function TopRatedNamesPanel({
       data-names-panel="top-rated"
     >
       <h2 id="top-rated-heading" className="list-block-title">
-        Ratings
+        Добавленные имена
       </h2>
       <p className="list-block-hint">
-        Non-zero scores (likes and dislikes), highest first. Positive scores are
-        skipped when picking. Reset clears a name to 0 and drops it from this
-        list.
+        Ненулевые оценки (нравится/не нравится), сначала самые высокие.
+        Положительные оценки пропускаются при выборе. «Сброс» возвращает оценку к
+        0 и убирает имя из этого списка.
       </p>
       {entries.length === 0 ? (
-        <p className="list-empty">No rated names yet.</p>
+        <p className="list-empty">Пока нет оценённых имён.</p>
       ) : (
         <>
           <ul
             className="name-list"
-            aria-label="Rated names, highest score first"
+            aria-label="Оценённые имена, сначала самые высокие"
           >
             {shown.map((row) => (
               <li key={row.name} style={rowBrightnessStyle(row.rating)}>
@@ -66,20 +66,20 @@ export function TopRatedNamesPanel({
                   <div
                     className="name-list-rating-controls"
                     role="group"
-                    aria-label={`Adjust rating for ${row.name}`}
+                    aria-label={`Изменить оценку для ${row.name}`}
                   >
                     <button
                       type="button"
                       className="btn btn-inline btn-rating-minus"
                       onClick={() => onAdjustRating(row.name, -1)}
-                      title="Remove one point"
-                      aria-label={`Remove one point from ${row.name}`}
+                      title="Убавить на один"
+                      aria-label={`Убавить один балл у ${row.name}`}
                     >
                       −
                     </button>
                     <span
                       className="name-list-score"
-                      aria-label={`Rating: ${row.rating}`}
+                      aria-label={`Оценка: ${row.rating}`}
                     >
                       {row.rating}
                     </span>
@@ -87,8 +87,8 @@ export function TopRatedNamesPanel({
                       type="button"
                       className="btn btn-inline btn-rating-plus"
                       onClick={() => onAdjustRating(row.name, 1)}
-                      title="Add one point"
-                      aria-label={`Add one point to ${row.name}`}
+                      title="Добавить один"
+                      aria-label={`Добавить один балл к ${row.name}`}
                     >
                       +
                     </button>
@@ -97,10 +97,10 @@ export function TopRatedNamesPanel({
                     type="button"
                     className="btn btn-inline btn-rating-reset"
                     onClick={() => onResetRating(row.name)}
-                    title="Clear rating (back to 0) and remove from this list"
-                    aria-label={`Reset rating for ${row.name} to zero`}
+                    title="Сбросить оценку (к 0) и убрать из списка"
+                    aria-label={`Сбросить оценку для ${row.name} до нуля`}
                   >
-                    Reset
+                    Сброс
                   </button>
                 </div>
               </li>
@@ -108,7 +108,7 @@ export function TopRatedNamesPanel({
           </ul>
           {overflowCount > 0 && (
             <p className="list-overflow" role="status">
-              Showing {shown.length} of {entries.length} rated names.
+              Показано {shown.length} из {entries.length} оценённых имён.
             </p>
           )}
         </>

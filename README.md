@@ -1,6 +1,6 @@
 # simple-name-picker
 
-**Version 0.2.0** · Small **Vite + React + TypeScript** web app for drawing a **random name** from a catalog, **rating** names (like / dislike), and **banning** names until you restore them. State is **saved in the browser** (`localStorage`). See [CHANGELOG.md](./CHANGELOG.md) for release notes.
+**Version 0.2.1** · Small **Vite + React + TypeScript** web app for drawing a **random name** from a catalog, **rating** names (like / dislike), and **banning** names until you restore them. State is **saved in the browser** (`localStorage`). See [CHANGELOG.md](./CHANGELOG.md) for release notes.
 
 ## Features
 

@@ -26,7 +26,6 @@ function App() {
 
   const {
     picked,
-    pickedRating,
     handleReset,
     handlePick,
     handleLike,
@@ -51,7 +50,6 @@ function App() {
           {picked !== null && (
             <PickedResult
               name={picked}
-              rating={pickedRating ?? 0}
               onLike={handleLike}
               onDislike={handleDislike}
               onBan={handleBan}
@@ -59,7 +57,7 @@ function App() {
           )}
 
           <PickerStatus message={status} />
-          <PickerActions onPick={handlePick} />
+          <PickerActions onPick={handlePick} hasPicked={picked !== null} />
         </section>
 
         <aside className="app-column app-column--top-rated">
