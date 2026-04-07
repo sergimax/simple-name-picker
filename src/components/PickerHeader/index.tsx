@@ -20,11 +20,11 @@ export function PickerHeader({
         <PresetNamesDialog presetNames={presetNames} onUpdatePreset={onUpdatePreset} />
         <button
           type="button"
-          className="btn btn-reset"
+          className="btn"
           onClick={onReset}
-          title="Применить набор имён: сбросить имена, оценки и баны"
+          title="Применить исходный набор имён"
         >
-          Сбросить набор имён
+          Сбросить
         </button>
       </div>
     </header>

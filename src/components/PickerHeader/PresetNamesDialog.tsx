@@ -43,7 +43,7 @@ export function PresetNamesDialog({
         onClick={openEditor}
         title="Отредактировать список имён"
       >
-        Список имён
+        Редактировать
       </button>
 
       <dialog className="preset-dialog" ref={dialogRef} aria-labelledby={titleId}>
