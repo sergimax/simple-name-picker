@@ -44,7 +44,7 @@ export function TopRatedNamesPanel({
       data-names-panel="top-rated"
     >
       <h2 id="top-rated-heading" className="list-block-title">
-        Добавленные имена
+        Понравились
       </h2>
       <p className="list-block-hint">
         Ненулевые оценки (нравится/не нравится), сначала самые высокие.
