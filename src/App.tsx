@@ -65,7 +65,7 @@ function App() {
             onUpdatePreset={(next) => {
               setPresetNames(next)
               setState({ names: [...next], ratings: {}, banned: [] })
-              showStatus('Пресет обновлён и применён (оценки и баны очищены).')
+              showStatus('Набор имён обновлён и применён (оценки и баны очищены).')
             }}
           />
           <PickerIntro nameCount={names.length} bannedCount={discardedNames.length} />

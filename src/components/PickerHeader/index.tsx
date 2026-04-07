@@ -22,9 +22,9 @@ export function PickerHeader({
           type="button"
           className="btn btn-reset"
           onClick={onReset}
-          title="Применить пресет: сбросить имена, оценки и баны"
+          title="Применить набор имён: сбросить имена, оценки и баны"
         >
-          Сбросить всё
+          Сбросить набор имён
         </button>
       </div>
     </header>

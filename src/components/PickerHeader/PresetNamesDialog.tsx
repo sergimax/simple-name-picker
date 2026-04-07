@@ -41,15 +41,15 @@ export function PresetNamesDialog({
         type="button"
         className={triggerClassName}
         onClick={openEditor}
-        title="Отредактировать пресет (список имён, который применяется при сбросе)"
+        title="Отредактировать список имён"
       >
-        Пресет…
+        Список имён
       </button>
 
       <dialog className="preset-dialog" ref={dialogRef} aria-labelledby={titleId}>
         <form method="dialog" className="preset-dialog__form">
           <h2 id={titleId} className="preset-dialog__title">
-            Пресет: список имён
+            Список имён
           </h2>
           <p className="preset-dialog__hint">
             Одно имя на строку. Пустые строки и дубликаты будут удалены.

@@ -25,7 +25,7 @@ export function useNamePicker(
   const handleReset = useCallback(() => {
     setState(getResetState())
     setPicked(null)
-    showStatus('Список, оценки и баны сброшены к пресету.')
+    showStatus('Список, оценки и баны сброшены к исходному состоянию.')
   }, [getResetState, setState, showStatus])
 
   const handlePick = useCallback(() => {
