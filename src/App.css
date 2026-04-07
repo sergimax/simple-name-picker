@@ -47,8 +47,8 @@
     grid-template-rows: auto minmax(12rem, 42svh) minmax(12rem, 42svh);
     grid-template-areas:
       'main'
-      'discarded'
-      'topRated';
+      'topRated'
+      'discarded';
     gap: 1.75rem;
     overflow: visible;
     flex: 1 1 auto;
