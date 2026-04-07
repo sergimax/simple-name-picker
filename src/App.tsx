@@ -59,7 +59,7 @@ function App() {
           )}
 
           <PickerStatus message={status} />
-          <PickerActions onPick={handlePick} />
+          <PickerActions onPick={handlePick} hasPicked={picked !== null} />
         </section>
 
         <aside className="app-column app-column--top-rated">

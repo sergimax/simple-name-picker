@@ -11,27 +11,23 @@ type PickedResultProps = {
 
 export function PickedResult({
   name,
-  rating,
   onLike,
   onDislike,
   onBan,
 }: PickedResultProps) {
   return (
     <div className="picked" aria-live="polite">
-      <div className="picked-label">Current pick</div>
+      <div className="picked-label">Текущий выбор</div>
       <p className="picked-name">{name}</p>
-      <div className="picked-rating" aria-label="Current rating for this name">
-        Rating: <span className="picked-rating-value">{rating}</span>
-      </div>
-      <div className="rating-actions" role="group" aria-label="Rate this name">
+      <div className="rating-actions" role="group" aria-label="Оценить это имя">
         <button type="button" className="btn btn-like" onClick={onLike}>
-          Like
+          Нравится
         </button>
         <button type="button" className="btn btn-dislike" onClick={onDislike}>
-          Dislike
+          Не нравится
         </button>
         <button type="button" className="btn btn-ban" onClick={onBan}>
-          Ban
+          В бан
         </button>
       </div>
     </div>

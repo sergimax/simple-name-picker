@@ -25,17 +25,17 @@ export function useNamePicker(
   const handleReset = useCallback(() => {
     setState(defaultNamesState())
     setPicked(null)
-    showStatus('List, ratings, and bans reset to the default catalog.')
+    showStatus('Список, оценки и баны сброшены к каталогу по умолчанию.')
   }, [setState, showStatus])
 
   const handlePick = useCallback(() => {
     if (names.length === 0) {
-      showStatus('Your list is empty—add names or reset to default.')
+      showStatus('Список пуст — добавьте имена или сбросьте к значениям по умолчанию.')
       return
     }
     if (pickable.length === 0) {
       showStatus(
-        'No names left to pick—unban some, remove positive ratings (right-hand list), or reset.',
+        'Больше не из чего выбирать — разбаньте часть имён, уберите положительные оценки (список справа) или сделайте сброс.',
       )
       return
     }
@@ -95,7 +95,7 @@ export function useNamePicker(
         ...prev,
         banned: prev.banned.filter((n) => n !== name),
       }))
-      showStatus(`“${name}” is back in the pick pool.`)
+      showStatus(`«${name}» снова доступно для выбора.`)
     },
     [setState, showStatus],
   )
@@ -112,13 +112,13 @@ export function useNamePicker(
     if (pool.length === 0) {
       setPicked(null)
       showStatus(
-        `“${name}” is banned. Nothing left to pick—unban, lower positive ratings, or reset.`,
+        `«${name}» отправлено в бан. Больше не из чего выбирать — разбаньте имена, понизьте положительные оценки или сделайте сброс.`,
       )
       return
     }
     const j = Math.floor(Math.random() * pool.length)
     setPicked(pool[j])
-    showStatus(`“${name}” is banned—here’s another name.`)
+    showStatus(`«${name}» в бане — вот другое имя.`)
   }, [banned, picked, setState, showStatus, state])
 
   const pickedRating = picked !== null ? ratingFor(state, picked) : null

@@ -1,4 +1,4 @@
-import "./styles.css";
+import './styles.css'
 
 export function AppFooter() {
   return (
@@ -11,7 +11,7 @@ export function AppFooter() {
           href="https://github.com/sergimax"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="sergimax on GitHub"
+          aria-label="sergimax на GitHub"
         >
           sergimax
         </a>{" "}
@@ -26,5 +26,5 @@ export function AppFooter() {
         </a>
       </p>
     </footer>
-  );
+  )
 }

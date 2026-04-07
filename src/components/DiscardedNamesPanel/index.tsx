@@ -15,18 +15,18 @@ export function DiscardedNamesPanel({ names, onRestore }: DiscardedNamesPanelPro
       data-names-panel="discarded"
     >
       <h2 id="discarded-heading" className="list-block-title">
-        Discarded (banned)
+        Отклоненные имена
       </h2>
       <p className="list-block-hint">
-        These names are excluded from random picks. Restore moves a name back
-        into the pool.
+        Эти имена исключены из случайного выбора. «Вернуть» возвращает имя обратно
+        в пул для выбора.
       </p>
       {names.length === 0 ? (
-        <p className="list-empty">No banned names.</p>
+        <p className="list-empty">Нет имён в бане.</p>
       ) : (
         <ul
           className="name-list"
-          aria-label="Names banned from random picks"
+          aria-label="Имена, исключённые из случайного выбора"
         >
           {names.map((name) => (
             <li key={name}>
@@ -35,9 +35,9 @@ export function DiscardedNamesPanel({ names, onRestore }: DiscardedNamesPanelPro
                 type="button"
                 className="btn btn-inline"
                 onClick={() => onRestore(name)}
-                title="Put this name back into random picks"
+                title="Вернуть это имя в случайный выбор"
               >
-                Restore
+                Вернуть
               </button>
             </li>
           ))}
