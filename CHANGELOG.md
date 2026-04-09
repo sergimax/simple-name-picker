@@ -5,6 +5,17 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2026-04-09
+
+### Added
+
+- **README-RU.md:** Russian project readme; cross-links with `README.md`.
+
+### Changed
+
+- **Documentation:** `README.md` / `README-RU.md` now describe dual name presets, the preset storage key, pick pool rules (no positive ratings), and header **Сбросить** as reapplying the active saved preset (not only the bundled default).
+- **Agent rules:** `.cursor/rules/project-rules.mdc` — when multiple language readmes exist, keep their technical facts in sync.
+
 ## [1.0.0] - 2026-04-09
 
 ### Changed

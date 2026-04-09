@@ -57,7 +57,8 @@ Example: `feat: add name list editor`
 
 - **SemVer** in `package.json` when cutting releases.
 - Maintain **`CHANGELOG.md`** at repo root ([Keep a Changelog](https://keepachangelog.com/)); add **Unreleased** notes for notable fixes/features, then cut dated version sections when releasing.
-- **README.md** should stay aligned with real behavior (persistence key, main flows, layout).
+- **README** should stay aligned with real behavior (persistence keys, main flows, layout, version line if present).
+- **Multiple README languages:** if the repo has more than one root-level readme (e.g. `README.md` + `README-RU.md`), treat them as one **documentation set**. When you change substantive content in any of them (features, storage keys/shapes, scripts, structure, setup, links), **update every locale file** so facts and behavior stay in sync. Wording may differ; technical details must not drift. Add cross-links at the top of each file so readers can find the other languages.
 - **Vite `define` / build-time version strings:** only add when the UI or logic needs them.
 
 ## Communication
