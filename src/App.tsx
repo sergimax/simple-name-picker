@@ -9,8 +9,9 @@ import { TopRatedNamesPanel } from './components/TopRatedNamesPanel/index.tsx'
 import { usePersistedNamesCatalog } from './hooks/usePersistedNamesCatalog'
 import { useNamePicker } from './hooks/useNamePicker'
 import { useStatusMessage } from './hooks/useStatusMessage'
-import { NAMES } from './data/names'
-import { loadPresetNames, savePresetNames } from './presetNamesStorage'
+import { FEMALE_NAMES, MALE_NAMES } from './data/names'
+import type { PresetGender, PresetNamesCatalog } from './presetNamesStorage'
+import { loadPresetNamesCatalog, savePresetNamesCatalog } from './presetNamesStorage'
 import './App.css'
 import { useEffect, useMemo, useState } from 'react'
 
@@ -27,17 +28,34 @@ function App() {
 
   const { status, showStatus } = useStatusMessage()
 
-  const [presetNames, setPresetNames] = useState<string[]>(
-    () => loadPresetNames() ?? [...NAMES],
-  )
+  const [presetCatalog, setPresetCatalog] = useState<PresetNamesCatalog>(() => {
+    const stored = loadPresetNamesCatalog()
+    if (stored) {
+      return {
+        female: stored.female.length > 0 ? stored.female : [...FEMALE_NAMES],
+        male: stored.male.length > 0 ? stored.male : [...MALE_NAMES],
+        selected: stored.selected ?? 'female',
+      }
+    }
+    return {
+      female: [...FEMALE_NAMES],
+      male: [...MALE_NAMES],
+      selected: 'female',
+    }
+  })
+
+  const selectedPreset: PresetGender = presetCatalog.selected ?? 'female'
+  const selectedPresetNames = useMemo(() => {
+    return selectedPreset === 'male' ? presetCatalog.male : presetCatalog.female
+  }, [presetCatalog.female, presetCatalog.male, selectedPreset])
 
   useEffect(() => {
-    savePresetNames(presetNames)
-  }, [presetNames])
+    savePresetNamesCatalog(presetCatalog)
+  }, [presetCatalog])
 
   const getResetState = useMemo(() => {
-    return () => ({ names: [...presetNames], ratings: {}, banned: [] })
-  }, [presetNames])
+    return () => ({ names: [...selectedPresetNames], ratings: {}, banned: [] })
+  }, [selectedPresetNames])
 
   const {
     picked,
@@ -61,9 +79,9 @@ function App() {
         <section id="center" className="picker app-column app-column--main">
           <PickerHeader
             onReset={handleReset}
-            presetNames={presetNames}
-            onUpdatePreset={(next) => {
-              setPresetNames(next)
+            presetCatalog={presetCatalog}
+            onUpdatePreset={(preset, next) => {
+              setPresetCatalog((prev) => ({ ...prev, [preset]: next, selected: preset }))
               setState({ names: [...next], ratings: {}, banned: [] })
               showStatus('Набор имён обновлён и применён (оценки и баны очищены).')
             }}

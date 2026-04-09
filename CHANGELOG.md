@@ -5,7 +5,23 @@ All notable changes to this project are documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [1.0.0] - 2026-04-09
+
+### Changed
+
+- **Stable release:** version **1.0.0** — no behavior change relative to v0.4.0; SemVer applies going forward for documented flows, UI, bundled name lists, and `localStorage` keys/shapes described in the README.
+
+## [0.4.0] - 2026-04-09
+
+### Added
+
+- **Dual presets (female / male):** `src/data/names.ts` exports `FEMALE_NAMES` and `MALE_NAMES` (small bundled male starter list). `NAMES` remains an alias of the female list for existing defaults (`namePickerState`, migrations).
+- **Preset catalog persistence:** `simple-name-picker:preset-names` stores `{ female, male, selected? }`. Plain-array preset JSON from earlier versions is migrated to the female list on load.
+- **Список имён dialog:** template buttons **Вставить женские (шаблон)** / **Вставить мужские (шаблон)** fill the editor from the bundled lists; **Сохранить и применить** updates the chosen slot, sets it active, and reapplies the catalog (ratings and bans cleared).
+
+### Changed
+
+- **Редактировать** flow no longer uses an in-dialog preset switch; choosing a template defines the save target until you pick the other template or reopen the dialog (initial draft follows the active saved preset).
 
 ## [0.3.0] - 2026-04-07
 

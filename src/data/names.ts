@@ -1,5 +1,5 @@
 /** Curated female given names (from `raw-names-list.md`): section letters, wiki clutter, and exact duplicates removed. */
-export const NAMES = [
+export const FEMALE_NAMES = [
   "Абби",
   "Аби",
   "Абигейл",
@@ -1459,4 +1459,21 @@ export const NAMES = [
   "Яся",
 ] as const;
 
-export type Name = (typeof NAMES)[number];
+/**
+ * Small built-in male preset (user-editable later).
+ * Kept intentionally short to avoid shipping a huge additional dataset by default.
+ */
+export const MALE_NAMES = [
+  "Александр",
+  "Дмитрий",
+  "Иван",
+  "Максим",
+  "Сергей",
+  "Артём",
+  "Никита",
+] as const;
+
+/** Backwards-compat export used by existing app defaults (female). */
+export const NAMES = FEMALE_NAMES;
+
+export type Name = (typeof FEMALE_NAMES)[number];
