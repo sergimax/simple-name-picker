@@ -16,7 +16,7 @@ export function PickerHeader({
 }: PickerHeaderProps) {
   return (
     <header className="picker-header">
-      <h1 className="picker-title">Выбор имени</h1>
+      <h1 className="picker-title">Подбор имени</h1>
       <div className="picker-header-actions">
         <PresetNamesDialog catalog={presetCatalog} onUpdatePreset={onUpdatePreset} />
         <button
